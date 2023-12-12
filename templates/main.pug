@@ -4,9 +4,8 @@ html
     include common-head.pug
     title Bluedit / Home
   body
-    header
-      include menubar.pug
-      +menubar({ currentPage: 'main' })
+    include menubar.pug
+    +menubar('main')
     main#content
       #search-box
         form(action="/search" method="get")

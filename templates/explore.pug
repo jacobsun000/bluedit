@@ -6,7 +6,7 @@ html
   body
     header
       include menubar.pug
-      +menubar({ currentPage: 'main' })
+      +menubar('explore')
     main#content
       #search-box
         form(action="/explore" method="get")

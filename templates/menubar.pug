@@ -4,11 +4,11 @@ mixin menubar(currentPage)
     h1 Bluedit
     ul
       li
-        a(id=(currentPage === 'main' ? 'menu-selected' : 'menu-item'), href='/') Home
+        a(id=(currentPage == 'main' ? 'menu-selected' : 'menu-item'), href='/') Home
       li
-        a(id=(currentPage === 'explore' ? 'menu-selected' : 'menu-item'), href='/explore') Explore
+        a(id=(currentPage == 'explore' ? 'menu-selected' : 'menu-item'), href='/explore') Explore
       li
-        a(id=(currentPage === 'notifications' ? 'menu-selected' : 'menu-item'), href='/notifications') Notifications
-  section#user-status
-    div User Abc
-    div @user_id123
+        a(id=(currentPage == 'notifications' ? 'menu-selected' : 'menu-item'), href='/notifications') Notifications
+    section#user-status
+      div User Abc
+      div @user_id123

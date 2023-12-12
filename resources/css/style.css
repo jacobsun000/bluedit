@@ -6,7 +6,7 @@
   --text-dimmed: #f2f2f2;
   --text-hidden: #ccc;
   --highlight: #16b8f3; /* Zima blue*/
-  --highlight-dimmer: #0e8abf;
+  --highlight-dimmed: #567e98;
   --border: #ddd;
 }
 
@@ -59,7 +59,7 @@ body {
   margin-bottom: 10px;
 }
 
-#menubar a {
+#menu-item {
   text-decoration: none;
   font-size: 20px;
   color: var(--text);
@@ -71,13 +71,14 @@ body {
 }
 
 #menu-selected {
-    float: left;
-    text-decoration: none;
-    color: black;
-    background-color: white;
-    padding: 14px 20px;
-    border-radius: 5px;
-    transition: background-color 0.4s ease-in-out;
+  text-decoration: none;
+  font-size: 20px;
+  color: var(--text);
+  background-color: var(--highlight-dimmed);
+  padding: 14px 20px;
+  border-radius: 10px;
+  transition: background-color 0.4s ease-in-out;
+  display: block;
 }
 
 #menubar a:hover {
@@ -88,9 +89,9 @@ body {
 /* User status */
 #user-status {
   position: absolute;
-  bottom: 14px;
-  left: 20px;
-  width: 10%;
+  bottom: 5%;
+  left: 5%;
+  width: 80%;
   padding: 14px 20px;
   border-radius: 15px;
   background-color: var(--background-dimmed);
