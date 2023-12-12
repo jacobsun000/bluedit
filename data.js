@@ -1,4 +1,4 @@
-import mysql from 'mysql-await'; // npm install mysql-await
+import mysql from 'mysql-await';
 
 var connPool = mysql.createPool({
   connectionLimit: 5,
