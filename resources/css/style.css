@@ -1,0 +1,115 @@
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Menu bar */
+#menu-bar {
+  float: left;
+  width: 20%;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+#user-status {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20%;
+  padding: 20px;
+  background-color: #d9edf7;
+}
+
+#content {
+  margin-left: 25%;
+  width: 70%;
+}
+
+/* Search box */
+#search-box {
+  padding: 10px;
+  text-align: center;
+}
+
+#search-box input[type="text"] {
+  padding: 8px;
+  width: 70%;
+  margin-right: 5px;
+}
+
+#search-box button {
+  padding: 8px 15px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#search-box button:hover {
+  background-color: #4cae4c;
+}
+
+/* Blogs */
+.blog-post {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.blog-title {
+  font-size: 1.5em;
+}
+
+.blog-text-preview {
+  color: #555;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Pagination */
+#pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#pagination ul {
+  list-style: none;
+  padding: 0;
+}
+
+#pagination li {
+  display: inline;
+  margin: 0 5px;
+}
+
+#pagination li a {
+  text-decoration: none;
+  padding: 8px 12px;
+  color: #333;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#pagination li a:hover {
+  background-color: #e9e9e9;
+}
+
+#pagination .current-page {
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #5cb85c;
+  color: white;
+}
+
+#pagination .disabled {
+  color: #ccc;
+}
+
+#pagination .arrow {
+}

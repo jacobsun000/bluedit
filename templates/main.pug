@@ -1,4 +1,45 @@
 doctype html
-head
-  title X
-h1 X
+html
+  head
+    title Microblogging Site
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    header
+      nav#menu-bar
+        ul
+          li Home
+          li Explore
+          li Notifications
+    section#user-status
+      div User Abc
+      div @user_id123
+    main#content
+      #search-box
+        form(action="/search" method="get")
+          input(type="text" name="q" placeholder="Search blogs...")
+          button(type="submit") Search
+      #blog-list
+        each blog in blogs
+          article.blog-post
+            a(href=`/blogs/${blog.id}`)
+              h2.blog-title= blog.title
+              p.blog-text-preview= blog.text
+              if blog.image
+                img(src=blog.image, alt="Blog Image")
+      nav#pagination
+        ul
+          li: a(href=`/?page=${prevPage}`, class=(currentPage === 1 ? 'disabled' : 'arrow')) <
+          if currentPage > 1
+            li: a(href="/?page=1") 1
+            if currentPage > 2
+              li ... 
+            if currentPage > 3
+              li: a(href=`/?page=${currentPage-1}`) #{currentPage-1}
+          li.current-page #{currentPage}
+          if currentPage < lastPage
+            li: a(href=`/?page=${currentPage+1}`) #{currentPage+1}
+            if lastPage - currentPage > 2
+              li ... 
+            if lastPage - currentPage > 1
+              li: a(href=`/?page=${lastPage}`) #{lastPage}
+          li: a(href=`/?page=${nextPage}`, class=(currentPage === lastPage ? 'disabled' : 'arrow')) >

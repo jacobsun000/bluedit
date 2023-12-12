@@ -29,9 +29,27 @@ APP.use((req, res, next) => {
 // static files
 APP.use(express.static('resources'));
 
+const blogs = [
+  { 'id': 1, 'title': "Blog 1", 'text': "Content 1" },
+  { 'id': 2, 'title': "Blog 2", 'text': "Content 2" },
+  { 'id': 3, 'title': "Blog 3", 'text': "Content 3" },
+  { 'id': 4, 'title': "Blog 4", 'text': "Content 4" },
+  { 'id': 5, 'title': "Blog 5", 'text': "Content 5" },
+  { 'id': 6, 'title': "Blog 6", 'text': "Content 6" },
+  { 'id': 7, 'title': "Blog 7", 'text': "Content 7" },
+  { 'id': 8, 'title': "Blog 8", 'text': "Content 8" },
+];
 // mainpage
-APP.get(['/', '/main'], (_, res) => {
-  res.status(200).render('main');
+APP.get('/', function(req, res) {
+  let currentPage = parseInt(req.query.page, 10) || 1;
+  const pageSize = 8;
+  const totalBlogs = 8;
+
+  const lastPage = Math.ceil(totalBlogs / pageSize);
+  const prevPage = currentPage > 1 ? currentPage - 1 : 1;
+  const nextPage = currentPage < lastPage ? currentPage + 1 : lastPage;
+
+  res.render('main', { blogs: blogs, currentPage: currentPage, lastPage: lastPage, prevPage: prevPage, nextPage: nextPage });
 });
 
 // rest
