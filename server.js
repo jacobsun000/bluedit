@@ -9,6 +9,7 @@ APP.set('views', './templates');
 APP.use(express.json());
 APP.use(express.urlencoded({ extended: true }));
 APP.use((req, res, next) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   const startTime = new Date();
   const logger = () => {
     res.removeListener('finish', logger);
