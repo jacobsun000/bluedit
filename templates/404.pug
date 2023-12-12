@@ -1,7 +1,11 @@
 doctype html
-head
-  title 404 - Not Found
-
-h1 404
-p Page Not Found
-a(href='/') Return Home
+html
+  head
+    title Bluedit / Home
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    header
+      include menubar.pug
+      +menubar({ currentPage: 'main' })
+    main#content
+      h1 404 Not Found
