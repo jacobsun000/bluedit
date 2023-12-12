@@ -36,6 +36,11 @@ body {
   flex-direction: column;
 }
 
+#menu-logo {
+  width: 50%;
+  height: auto;
+}
+
 #menubar h1 {
   padding: 20px;
   background-color: var(--highlight);

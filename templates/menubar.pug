@@ -1,6 +1,7 @@
 mixin menubar(currentPage)
   #menubar
-    h1#logo Bluedit
+    img#menu-logo(src='/image/bluedit.png', alt='Logo')
+    h1 Bluedit
     ul
       li
         a(id=(currentPage === 'main' ? 'menu-selected' : 'menu-item'), href='/') Home
