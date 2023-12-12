@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Bluedit / Home
+    title Bluedit / Explore
     link(rel="stylesheet", href="/css/style.css")
   body
     header
@@ -9,9 +9,14 @@ html
       +menubar({ currentPage: 'main' })
     main#content
       #search-box
-        form(action="/search" method="get")
-          input(type="text" name="q" placeholder="Search blogs..." value=searchText)
+        form(action="/explore" method="get")
+          input(type="text" name="search" placeholder="Search blogs..." value=searchText)
+          select(name="sort")
+            option(value="newest" selected=sort === 'newest') Newest
+            option(value="oldest" selected=sort === 'oldest') Oldest
+            option(value="likes" selected=sort === 'likes') Most Likes
           button(type="submit") Search
+
       #blog-list
         each blog in blogs
           article.blog-post
@@ -20,5 +25,6 @@ html
               p.blog-text-preview= blog.text
               if blog.image
                 img(src=blog.image, alt="Blog Image")
+
       include pagination.pug
-      +pagination('/', page)
+      +pagination('/explore', page)

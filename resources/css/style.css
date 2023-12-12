@@ -118,8 +118,9 @@ body {
   outline: none;
 }
 
-#search-box button {
+#search-box select, button {
   padding: 8px 15px;
+  margin-right: 15px;
   height: 45px;
   font-size: 18px;
   border-radius: 5px;

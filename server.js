@@ -42,11 +42,10 @@ const blogs = [
 
 // mainpage
 APP.get('/', function(req, res) {
-  let currentPage = parseInt(req.query.page, 10) || 1;
   const pageSize = 2;
   const totalBlogs = 8;
 
-  const curr = currentPage;
+  const curr = parseInt(req.query.page, 10) || 1;
   const last = Math.ceil(totalBlogs / pageSize);
   const page = {
     curr: curr,
@@ -56,6 +55,25 @@ APP.get('/', function(req, res) {
   };
 
   res.render('main', { blogs: blogs, page: page });
+});
+
+APP.get('/explore', function(req, res) {
+  let searchText = req.query.search || '';
+  let sort = req.query.sort || 'date';
+
+  const pageSize = 2;
+  let totalBlogs = 8;
+
+  let curr = parseInt(req.query.page, 10) || 1;
+  const last = Math.ceil(totalBlogs / pageSize);
+  const page = {
+    curr: curr,
+    last: last,
+    prev: curr > 1 ? curr - 1 : 1,
+    next: curr < last ? curr + 1 : last
+  };
+
+  res.render('explore', { blogs, page });
 });
 
 // rest
