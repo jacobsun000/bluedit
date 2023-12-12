@@ -1,18 +1,18 @@
-mixin pagination(baseUrl, currentPage, prevPage, nextPage, lastPage)
+mixin pagination(baseUrl, page)
   nav#pagination
     ul
-      li: a(href=`${baseUrl}?page=${prevPage}`, class=(currentPage === 1 ? 'disabled' : 'arrow')) <
-      if currentPage > 1
+      li: a(href=`${baseUrl}?page=${page.prev}`, class=(page.curr === 1 ? 'disabled' : 'arrow')) <
+      if page.curr > 1
         li: a(href=`${baseUrl}?page=1`) 1
-        if currentPage > 2
+        if page.curr > 2
           li ... 
-        if currentPage > 3
-          li: a(href=`${baseUrl}?page=${currentPage-1}`) #{currentPage-1}
-      li.current-page #{currentPage}
-      if currentPage < lastPage
-        li: a(href=`${baseUrl}?page=${currentPage+1}`) #{currentPage+1}
-        if lastPage - currentPage > 2
+        if page.curr > 3
+          li: a(href=`${baseUrl}?page=${page.curr-1}`) #{page.curr-1}
+      li.current-page #{page.curr}
+      if page.curr < page.last
+        li: a(href=`${baseUrl}?page=${page.curr+1}`) #{page.curr+1}
+        if page.last - page.curr > 2
           li ... 
-        if lastPage - currentPage > 1
-          li: a(href=`${baseUrl}?page=${lastPage}`) #{lastPage}
-      li: a(href=`${baseUrl}?page=${nextPage}`, class=(currentPage === lastPage ? 'disabled' : 'arrow')) >
+        if page.last - page.curr > 1
+          li: a(href=`${baseUrl}?page=${page.last}`) #{page.last}
+      li: a(href=`${baseUrl}?page=${page.next}`, class=(page.curr === page.last ? 'disabled' : 'arrow')) >

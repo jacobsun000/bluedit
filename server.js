@@ -39,17 +39,23 @@ const blogs = [
   { 'id': 7, 'title': "Blog 7", 'text': "Content 7" },
   { 'id': 8, 'title': "Blog 8", 'text': "Content 8" },
 ];
+
 // mainpage
 APP.get('/', function(req, res) {
   let currentPage = parseInt(req.query.page, 10) || 1;
   const pageSize = 2;
   const totalBlogs = 8;
 
-  const lastPage = Math.ceil(totalBlogs / pageSize);
-  const prevPage = currentPage > 1 ? currentPage - 1 : 1;
-  const nextPage = currentPage < lastPage ? currentPage + 1 : lastPage;
+  const curr = currentPage;
+  const last = Math.ceil(totalBlogs / pageSize);
+  const page = {
+    curr: curr,
+    last: last,
+    prev: curr > 1 ? curr - 1 : 1,
+    next: curr < last ? curr + 1 : last
+  };
 
-  res.render('main', { blogs: blogs, currentPage: currentPage, lastPage: lastPage, prevPage: prevPage, nextPage: nextPage });
+  res.render('main', { blogs: blogs, page: page });
 });
 
 // rest

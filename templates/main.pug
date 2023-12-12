@@ -21,4 +21,4 @@ html
               if blog.image
                 img(src=blog.image, alt="Blog Image")
       include pagination.pug
-      +pagination('/', currentPage, prevPage, nextPage, lastPage)
+      +pagination('/', page)

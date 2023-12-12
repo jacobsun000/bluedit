@@ -196,13 +196,11 @@ img {
 }
 
 #pagination .current-page {
-  background-color: var(--background-dimmed);
   color: var(--text);
-
   padding: 8px 12px;
   border-radius: 10px;
   font-weight: bold;
-  background-color: var(--background-dimmed);
+  background-color: var(--highlight);
   color: var(--text);
 }
 
