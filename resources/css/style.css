@@ -1,66 +1,138 @@
+/* Color palette */
+:root {
+  --background: #333;
+  --background-dimmed: #444;
+  --text: #f2f2f2;
+  --text-dimmed: #f2f2f2;
+  --text-hidden: #ccc;
+  --highlight: #1e90ff;
+  --border: #ddd;
+}
+
+/*Fonts*/
+@font-face {
+    /*font stealed from @apple.com*/
+    font-family: 'sf-pro-semibold';
+    src: url('/font/sf-pro-semibold.woff2') format('woff2'),
+}
+
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'sf-pro-semibold', sans-serif;
+  font-size: 16px;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 /* Menu bar */
-#menu-bar {
+#menubar {
   float: left;
-  width: 20%;
-  background-color: #f2f2f2;
+  width: 10%;
+  height: 100vh;
+  background-color: var(--background);
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
+#menubar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#menubar li {
+  margin-bottom: 10px;
+}
+
+#menubar a {
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--background-dimmed);
+  padding: 14px 20px;
+  border-radius: 10px;
+  transition: background-color 0.4s ease-in-out;
+  display: block;
+}
+
+#menubar a:hover, #menubar a#menu-selected {
+  background-color: var(--highlight);
+  color: var(--text-dimmed);
+}
+
+/* User status */
 #user-status {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 20%;
-  padding: 20px;
-  background-color: #d9edf7;
+  bottom: 14px;
+  left: 20px;
+  width: 10%;
+  padding: 14px 20px;
+  border-radius: 15px;
+  background-color: var(--background-dimmed);
+  color: var(--text);
 }
 
 #content {
-  margin-left: 25%;
-  width: 70%;
+  margin-left: 15%;
+  width: 80%;
+  padding: 20px;
+  background-color: var(--background);
 }
 
 /* Search box */
 #search-box {
-  padding: 10px;
+  padding: 40px;
   text-align: center;
 }
 
 #search-box input[type="text"] {
   padding: 8px;
   width: 70%;
-  margin-right: 5px;
+  height: 30px;
+  margin-right: 15px;
+  border-radius: 5px;
+  background-color: var(--background-dimmed);
+  border: none;
+  color: var(--text);
 }
 
 #search-box button {
   padding: 8px 15px;
-  background-color: #5cb85c;
-  color: white;
+  height: 45px;
+  border-radius: 5px;
+  background-color: var(--highlight);
+  color: var(--text);
   border: none;
   cursor: pointer;
+  transition: background-color 0.4s ease-in-out;
 }
 
 #search-box button:hover {
-  background-color: #4cae4c;
+  background-color: var(--background-dimmed);
 }
 
 /* Blogs */
 .blog-post {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
+  background-color: var(--background);
+  border: 1px solid var(--background-dimmed);
+  margin-bottom: 20px;
+  border-radius: 15px;
   padding: 5px;
+  transition: background-color 0.4s ease-in-out;
 }
 
-.blog-title {
-  font-size: 1.5em;
+.blog-post:hover {
+  background-color: var(--background-dimmed);
 }
 
-.blog-text-preview {
-  color: #555;
+.blog-post a {
+  text-decoration: none;
+}
+
+.blog-title, .blog-text-preview {
+  padding-left: 15px;
+  text-decoration: none;
+  color: var(--text);
 }
 
 img {
@@ -70,6 +142,9 @@ img {
 
 /* Pagination */
 #pagination {
+  position: absolute;
+  margin-left: 35%;
+  margin-bottom: 20px;
   text-align: center;
   margin-top: 20px;
 }
@@ -87,29 +162,27 @@ img {
 #pagination li a {
   text-decoration: none;
   padding: 8px 12px;
-  color: #333;
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  color: var(--text);
+  background-color: var(--background-dimmed);
+  border-radius: 10px;
+  transition: background-color 0.4s ease-in-out;
 }
 
 #pagination li a:hover {
-  background-color: #e9e9e9;
+  background-color: var(--highlight);
 }
 
 #pagination .current-page {
-  text-decoration: none;
+  background-color: var(--background-dimmed);
+  color: var(--text);
+
   padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   font-weight: bold;
-  background-color: #5cb85c;
-  color: white;
+  background-color: var(--background-dimmed);
+  color: var(--text);
 }
 
 #pagination .disabled {
-  color: #ccc;
-}
-
-#pagination .arrow {
+  color: var(--text-hidden);
 }

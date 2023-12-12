@@ -42,7 +42,7 @@ const blogs = [
 // mainpage
 APP.get('/', function(req, res) {
   let currentPage = parseInt(req.query.page, 10) || 1;
-  const pageSize = 8;
+  const pageSize = 2;
   const totalBlogs = 8;
 
   const lastPage = Math.ceil(totalBlogs / pageSize);

@@ -1,0 +1,12 @@
+mixin menubar(currentPage)
+  #menubar
+    ul
+      li
+        a(id=(currentPage === 'main' ? 'menu-selected' : 'menu-item'), href='/main') Home
+      li
+        a(id=(currentPage === 'explore' ? 'menu-selected' : 'menu-item'), href='/explore') Explore
+      li
+        a(id=(currentPage === 'notifications' ? 'menu-selected' : 'menu-item'), href='/notifications') Notifications
+  section#user-status
+    div User Abc
+    div @user_id123

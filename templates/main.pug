@@ -5,14 +5,8 @@ html
     link(rel="stylesheet", href="/css/style.css")
   body
     header
-      nav#menu-bar
-        ul
-          li Home
-          li Explore
-          li Notifications
-    section#user-status
-      div User Abc
-      div @user_id123
+      include menubar.pug
+      +menubar({ currentPage: 'main' })
     main#content
       #search-box
         form(action="/search" method="get")
