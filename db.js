@@ -80,8 +80,9 @@ export class DB {
     if (data.title) fieldsToUpdate.title = data.title;
     if (data.body) fieldsToUpdate.body = data.body;
     if (data.image) fieldsToUpdate.image = data.image;
+    if (data.likes) fieldsToUpdate.likes = data.likes;
 
-    if (Object.keys(fieldsToUpdate).length > 0) {
+    if (Object.keys(fieldsToUpdate).length > 0 && !data.likes) {
       fieldsToUpdate.updated_at = new Date();
     }
 
