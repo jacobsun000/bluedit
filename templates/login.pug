@@ -2,13 +2,15 @@ doctype html
 html
   head
     include common-head.pug
-    title Login
+    title Bluedit / Login
   body
-    h1 Login
+    .center
+      h1 Bluedit-Login
     if message
       p.error #{message}
     form(method='POST', action='/login')
       input(type='text', name='username', placeholder='Username/Email', required)
       input(type='password', name='password', placeholder='Password', required)
       button(type='submit') Login
-    a(href='/signup') Sign up
+    .button-container
+      a(href='/signup') Sign up

@@ -24,6 +24,61 @@ body {
   color: var(--text);
 }
 
+img {
+  width: 40%;
+  align-self: center;
+}
+
+.center {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  padding: 8px;
+  font-size: 18px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 5px;
+  background-color: var(--background-dimmed);
+  border: none;
+  color: var(--text);
+  outline: none;
+}
+
+form button {
+  padding: 8px 15px;
+  margin: 8px;
+  height: 45px;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: var(--highlight);
+  color: var(--text);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.4s ease-in-out;
+}
+
+.button-container {
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container a {
+  display: inline-block; 
+  padding: 10px 10px;
+  background-color: var(--highlight);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 5px;
+}
+
 /* Menu bar */
 #menubar {
   position: fixed;

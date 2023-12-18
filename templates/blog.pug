@@ -7,15 +7,18 @@ html
     include menubar.pug
     +menubar('blog', user)
     main#content
-      h1= blog.title
-      if blog.image
-        img(src=blog.image, alt="Blog Image")
+      .center
+        h1= blog.title
+        if blog.image
+          img(src=blog.image, alt="Blog Image")
       p #{blog.body}
+      br
       p 
         | Posted by 
         strong= blog.author
         |  on 
         span= blog.updated_at.toLocaleString()
       if user && user.id === blog.userid
-        a(href=`/edit?id=#{blog.id}`) Edit
+        .button-container
+          a(href=`/edit?id=#{blog.id}`) Edit
 

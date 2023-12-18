@@ -2,13 +2,17 @@ doctype html
 html
   head
     include common-head.pug
-    title Signup
+    title Bluedit / Signup
   body
-    h1 Signup
+    .center
+      h1 Bluedit-Signup
+      p Fields marked with * are required.
     form(method='POST', action='/signup')
-      input(type='text', name='username', placeholder='Username', required)
-      input(type='text', name='name', placeholder='Name', required)
-      input(type='email', name='email', placeholder='Email', required)
-      input(type='password', name='password', placeholder='Password', required)
+      input(type='text', name='username', placeholder='*Username', required)
+      input(type='text', name='name', placeholder='*Name', required)
+      input(type='email', name='email', placeholder='*Email', required)
+      input(type='password', name='password', placeholder='*Password', required)
+      input(type='text', name='image', placeholder='Image URL')
       button(type='submit') Sign up
-    a(href='/login') Login
+    .button-container
+      a(href='/login') Login
