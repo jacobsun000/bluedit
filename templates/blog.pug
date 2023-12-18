@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    include common-head.pug
+    title Bluedit / Blog
+  body
+    include menubar.pug
+    +menubar('main', user)
+    main#content
+      h1= blog.title
+      if blog.image
+        img(src=blog.image, alt="Blog Image")
+      p #{blog.body}
+      p 
+        | Posted by 
+        strong= blog.author
+        |  on 
+        span= blog.updated_at.toLocaleString()
+      if user && user.id === blog.userid
+        a(href=`/edit?id=#{blog.id}`) Edit
+

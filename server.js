@@ -58,6 +58,7 @@ function formatBlogsPreview(blogs, pageSize, currentPage) {
   let previewBlogs = blogs
     .slice((curr - 1) * pageSize, curr * pageSize)
     .map(blog => ({
+      id: blog.id,
       title: blog.title,
       preview: blog.body.length > 100 ? blog.body.substring(0, 100) + '...' : blog.body,
       image: blog.image,
@@ -92,6 +93,47 @@ app.get('/explore', async function(req, res) {
   const user = await getLoginUser(req);
   const { blogs, page } = formatBlogsPreview(rawBlogs, 6, curr);
   res.render('explore', { blogs, page, user });
+});
+
+// Blog
+app.get('/blog', async function(req, res) {
+  const id = parseInt(req.query.id, 10);
+  const blogs = await db.getPost({ id });
+  if (blogs == null || blogs.length === 0) {
+    return res.redirect('/404');
+  }
+  let blog = blogs[0];
+  const author = await db.getUser({ id: blog.userid });
+  blog.author = author === null ? 'Unknown' : author.name;
+  const user = await getLoginUser(req);
+  res.render('blog', { blog, user });
+});
+
+// Edit
+app.post('/edit', async function(req, res) {
+  const blogId = parseInt(req.params.id, 10);
+  const { title, body, image } = req.body;
+
+  if (!blogId) {
+    return res.redirect('/404');
+  }
+
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.redirect('/login');
+  }
+
+  const originalBlog = await db.getPost({ id: blogId });
+  if (originalBlog.length === 0 || originalBlog[0].userid !== user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  const success = await db.editPost({ id: blogId, title, body, image });
+  if (success) {
+    res.redirect(`/blog?id=${blogId}`);
+  } else {
+    res.status(500).send('An error occurred');
+  }
 });
 
 // Signup

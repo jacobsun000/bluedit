@@ -14,7 +14,7 @@ html
       #blog-list
         each blog in blogs
           article.blog-post
-            a(href=`/blogs/${blog.id}`)
+            a(href=`/blog?id=${blog.id}`)
               h2.blog-title= blog.title
               p.blog-text-preview= blog.preview
               if blog.image
