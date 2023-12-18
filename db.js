@@ -136,7 +136,10 @@ export class DB {
       query += ' WHERE id = ' + mysql.escape(data.id);
     } else if (data.username) {
       query += ' WHERE username = ' + mysql.escape(data.username);
-    } else {
+    } else if (data.email) {
+      query += ' WHERE email = ' + mysql.escape(data.email);
+    }
+    else {
       return null;
     }
 
