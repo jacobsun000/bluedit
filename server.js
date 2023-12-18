@@ -110,6 +110,26 @@ app.get('/blog', async function(req, res) {
 });
 
 // Edit
+app.get('/edit', async function(req, res) {
+  const id = parseInt(req.params.id, 10);
+  if (!id) {
+    return res.redirect('/404');
+  }
+
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.redirect('/login');
+  }
+
+  const blogs = await db.getPost({ id });
+  if (blogs.length === 0 || blogs[0].userid !== user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  const blog = blogs[0];
+  res.render('edit', { blog, user });
+});
+
 app.post('/edit', async function(req, res) {
   const blogId = parseInt(req.params.id, 10);
   const { title, body, image } = req.body;
