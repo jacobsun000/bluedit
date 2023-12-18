@@ -65,19 +65,21 @@ function formatBlogsPreview(blogs, pageSize, currentPage) {
   return { blogs: previewBlogs, page }
 }
 
+async function getLoginUser(req) {
+  if (req.session && req.session.userId) {
+    let user = await db.getUser({ id: req.session.userId });
+    user.password = null;
+    return user;
+  }
+  return null;
+}
+
 // Home
 app.get('/', async function(req, res) {
   const rawBlogs = await db.getPost({ sortBy: 'newest' });
   const curr = parseInt(req.query.page, 10) || 1;
-
-  let user = null;
-  if (req.session && req.session.userId) {
-    user = await db.getUser({ id: req.session.userId });
-    user.password = null;
-  }
-
+  const user = await getLoginUser(req);
   const { blogs, page } = formatBlogsPreview(rawBlogs, 6, curr);
-
   res.render('main', { blogs, page, user });
 });
 
@@ -87,13 +89,7 @@ app.get('/explore', async function(req, res) {
   const sortBy = req.query.sort || 'newest';
   const curr = parseInt(req.query.page, 10) || 1;
   const rawBlogs = await db.getPost({ keyword, sortBy });
-
-  let user = null;
-  if (req.session && req.session.userId) {
-    user = await db.getUser({ id: req.session.userId });
-    user.password = null;
-  }
-
+  const user = await getLoginUser(req);
   const { blogs, page } = formatBlogsPreview(rawBlogs, 6, curr);
   res.render('explore', { blogs, page, user });
 });
@@ -107,7 +103,6 @@ app.post('/signup', async (req, res) => {
   let { username, name, email, password, image } = req.body;
   password = await bcrypt.hash(password, 8);
 
-  console.log(username, name, email, password, image);
   const result = await db.addUser({ username, name, email, password, image });
   if (result) {
     res.redirect('/login');
