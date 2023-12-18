@@ -37,7 +37,7 @@ body {
 }
 
 #menu-logo {
-  width: 50%;
+  width: 80%;
   height: auto;
 }
 
@@ -195,7 +195,7 @@ body {
   margin-left: auto;
 }
 
-img {
+.image-container img {
   max-width: 15%;
   height: auto;
   display: block;
