@@ -91,10 +91,16 @@ body {
   position: absolute;
   bottom: 5%;
   left: 5%;
-  width: 80%;
-  padding: 14px 20px;
+  width: 75%;
+  padding: 10px 10px;
   border-radius: 15px;
-  background-color: var(--background-dimmed);
+  background-color: var(--highlight);
+  color: var(--text);
+  text-align: center;
+}
+
+#user-status a {
+  text-decoration: none;
   color: var(--text);
 }
 
@@ -157,17 +163,42 @@ body {
 
 .blog-post a {
   text-decoration: none;
+  display: block;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.text-container {
+  flex-grow: 1;
+  padding-right: 15px;
 }
 
 .blog-title, .blog-text-preview {
+  margin: 0;
   padding-left: 15px;
-  text-decoration: none;
   color: var(--text);
 }
 
+.blog-text-preview {
+  font-size: 13px;
+  padding-top: 10px;
+  color: var(--text-dimmed);
+}
+
+.image-container {
+  flex-shrink: 1;
+  margin-left: auto;
+}
+
 img {
-  max-width: 100%;
+  max-width: 15%;
   height: auto;
+  display: block;
 }
 
 /* Pagination */

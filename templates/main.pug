@@ -15,9 +15,12 @@ html
         each blog in blogs
           article.blog-post
             a(href=`/blog?id=${blog.id}`)
-              h2.blog-title= blog.title
-              p.blog-text-preview= blog.preview
-              if blog.image
-                img(src=blog.image, alt="Blog Image")
+              .content-container
+                .text-container
+                  h2.blog-title= blog.title
+                  p.blog-text-preview= blog.preview
+                if blog.image
+                  .image-container
+                    img(src=blog.image, alt="Blog Image")
       include pagination.pug
       +pagination('/', page)
