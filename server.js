@@ -140,6 +140,32 @@ app.get('/blog', async function(req, res) {
   res.render('blog', { blog, user });
 });
 
+// Delete
+app.get('/delete', async function(req, res) {
+  const id = parseInt(req.query.id, 10);
+
+  if (!id) {
+    return res.status(400).send('Invalid request');
+  }
+
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.redirect('/login');
+  }
+
+  const blog = await db.getPost({ id: id });
+  if (blog.length === 0 || blog[0].userid !== user.id) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  const success = await db.delPost({ id: id });
+  if (success) {
+    res.redirect('/');
+  } else {
+    res.status(500).send('An error occurred while deleting the post');
+  }
+});
+
 // Edit
 app.get('/edit', async function(req, res) {
   const id = parseInt(req.params.id, 10);
@@ -151,6 +177,7 @@ app.get('/edit', async function(req, res) {
   if (!user) {
     return res.redirect('/login');
   }
+
 
   const blogs = await db.getPost({ id });
   if (blogs.length === 0 || blogs[0].userid !== user.id) {
@@ -187,6 +214,7 @@ app.post('/edit', async function(req, res) {
   }
 });
 
+// Like
 // Signup
 app.get('/signup', (_, res) => {
   res.render('signup');

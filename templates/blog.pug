@@ -13,12 +13,14 @@ html
           img(src=blog.image, alt="Blog Image")
       p #{blog.body}
       br
-      p 
-        | Posted by 
-        strong= blog.author
-        |  on 
-        span= blog.updated_at.toLocaleString()
+      .center
+        p 
+          | Posted by 
+          strong= blog.author
+          |  on 
+          span= blog.updated_at.toLocaleString()
       if user && user.id === blog.userid
         .button-container
-          a(href=`/edit?id=#{blog.id}`) Edit
+          a(href=`/edit?id=${blog.id}`) Edit
+          a(href=`/delete?id=${blog.id}`) Delete
 
