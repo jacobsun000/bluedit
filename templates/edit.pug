@@ -8,15 +8,16 @@ html
     +menubar('edit', user)
     main#content
       h1 Edit Blog Post
-      form(action='/edit', method='post')
-        input(type='hidden', name='id', value=blog.id)
-        div
-          label(for='title') Title:
-          input(type='text', name='title', value=blog.title, required)
-        div
-          label(for='body') Body:
-          textarea(name='body', required)= blog.body
-        div
-          label(for='image') Image URL:
-          input(type='text', name='image', value=blog.image)
-        button(type='submit') Submit
+      .edit
+        form(action='/edit', method='post')
+          input(type='hidden', name='id', value=blog.id)
+          div
+            label(for='title') Title:
+            input(type='text', name='title', value=blog.title, required)
+          div
+            label(for='body') Body:
+            textarea(name='body', required)= blog.body
+          div
+            label(for='image') Image URL:
+            input(type='text', name='image', value=blog.image)
+          button(type='submit') Submit
