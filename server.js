@@ -62,6 +62,7 @@ function formatBlogsPreview(blogs, pageSize, currentPage) {
       title: blog.title,
       preview: blog.body.length > 100 ? blog.body.substring(0, 100) + '...' : blog.body,
       image: blog.image,
+      likes: blog.likes || 0,
     }));
   return { blogs: previewBlogs, page }
 }
@@ -168,9 +169,9 @@ app.get('/delete', async function(req, res) {
 
 // Edit
 app.get('/edit', async function(req, res) {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    return res.redirect('/404');
+  const id = parseInt(req.query.id, 10);
+  if (id === null) {
+    return res.redirect('');
   }
 
   const user = await getLoginUser(req);
@@ -215,6 +216,31 @@ app.post('/edit', async function(req, res) {
 });
 
 // Like
+app.post('/like', async function(req, res) {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).send('Invalid request');
+  }
+
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  let blog = await db.getPost({ id: id });
+  if (blog === null || blog.length === 0) {
+    return res.status(400).send('Unknown blog');
+  }
+  blog = blog[0];
+  blog.likes = parseInt(blog.likes, 10) + 1;
+  let result = await db.editPost({ id: id, likes: blog.likes });
+  if (!result) {
+    return res.status(500).send('An error occurred');
+  }
+  res.status(200).send('Post liked successfully');
+});
+
 // Signup
 app.get('/signup', (_, res) => {
   res.render('signup');
