@@ -16,7 +16,7 @@ html
           article.blog-post
             a(href=`/blogs/${blog.id}`)
               h2.blog-title= blog.title
-              p.blog-text-preview= blog.text
+              p.blog-text-preview= blog.preview
               if blog.image
                 img(src=blog.image, alt="Blog Image")
       include pagination.pug
