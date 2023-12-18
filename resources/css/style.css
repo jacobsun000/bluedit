@@ -33,51 +33,6 @@ img {
   text-align: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-form input {
-  padding: 8px;
-  font-size: 18px;
-  height: 30px;
-  margin: 8px;
-  border-radius: 5px;
-  background-color: var(--background-dimmed);
-  border: none;
-  color: var(--text);
-  outline: none;
-}
-
-form button {
-  padding: 8px 15px;
-  margin: 8px;
-  height: 45px;
-  font-size: 18px;
-  border-radius: 5px;
-  background-color: var(--highlight);
-  color: var(--text);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.4s ease-in-out;
-}
-
-.button-container {
-  align-items: center;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.button-container a {
-  display: inline-block; 
-  padding: 10px 10px;
-  background-color: var(--highlight);
-  color: var(--text);
-  text-decoration: none;
-  border-radius: 5px;
-}
 
 /* Menu bar */
 #menubar {
@@ -169,7 +124,12 @@ form button {
 /* Search box */
 #search-box {
   padding: 40px;
-  text-align: center;
+}
+
+#search-box form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #search-box input[type="text"] {
@@ -226,6 +186,16 @@ form button {
   justify-content: space-between;
   width: 100%;
   align-items: center;
+}
+
+.content-container button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  white-space: nowrap;
+  color: var(--text-dimmed);
 }
 
 .text-container {
@@ -299,4 +269,51 @@ form button {
 
 #pagination .disabled {
   color: var(--text-hidden);
+}
+
+/* Others */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  padding: 8px;
+  font-size: 18px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 5px;
+  background-color: var(--background-dimmed);
+  border: none;
+  color: var(--text);
+  outline: none;
+}
+
+form button {
+  padding: 8px 15px;
+  margin: 8px;
+  height: 45px;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: var(--highlight);
+  color: var(--text);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.4s ease-in-out;
+}
+
+.button-container {
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container a {
+  display: inline-block; 
+  padding: 10px 10px;
+  background-color: var(--highlight);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 5px;
 }
