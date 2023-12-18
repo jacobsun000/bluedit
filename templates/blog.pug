@@ -5,7 +5,7 @@ html
     title Bluedit / Blog
   body
     include menubar.pug
-    +menubar('main', user)
+    +menubar('blog', user)
     main#content
       h1= blog.title
       if blog.image

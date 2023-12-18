@@ -95,6 +95,37 @@ app.get('/explore', async function(req, res) {
   res.render('explore', { blogs, page, user });
 });
 
+// Post
+app.get('/post', async function(req, res) {
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.redirect('/login');
+  }
+
+  res.render('post', { user });
+});
+
+app.post('/post', async function(req, res) {
+  const { title, body, image } = req.body;
+  const user = await getLoginUser(req);
+  if (!user) {
+    return res.redirect('/login');
+  }
+
+  const success = await db.addPost({
+    userid: user.id,
+    title: title,
+    body: body,
+    image: image || null
+  });
+
+  if (success) {
+    res.redirect('/');
+  } else {
+    res.status(500).send('An error occurred while creating the post');
+  }
+});
+
 // Blog
 app.get('/blog', async function(req, res) {
   const id = parseInt(req.query.id, 10);
