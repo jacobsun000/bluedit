@@ -67,10 +67,18 @@ function formatBlogsPreview(blogs, pageSize, currentPage) {
 
 // Home
 app.get('/', async function(req, res) {
-  const blogs = await db.getPost({ sortBy: 'newest' });
+  const rawBlogs = await db.getPost({ sortBy: 'newest' });
   const curr = parseInt(req.query.page, 10) || 1;
 
-  res.render('main', formatBlogsPreview(blogs, 6, curr));
+  let user = null;
+  if (req.session && req.session.userId) {
+    user = await db.getUser({ id: req.session.userId });
+    user.password = null;
+  }
+
+  const { blogs, page } = formatBlogsPreview(rawBlogs, 6, curr);
+
+  res.render('main', { blogs, page, user });
 });
 
 // Explore
@@ -78,9 +86,16 @@ app.get('/explore', async function(req, res) {
   const keyword = req.query.search || '';
   const sortBy = req.query.sort || 'newest';
   const curr = parseInt(req.query.page, 10) || 1;
-  const blogs = await db.getPost({ keyword, sortBy });
+  const rawBlogs = await db.getPost({ keyword, sortBy });
 
-  res.render('explore', formatBlogsPreview(blogs, 6, curr));
+  let user = null;
+  if (req.session && req.session.userId) {
+    user = await db.getUser({ id: req.session.userId });
+    user.password = null;
+  }
+
+  const { blogs, page } = formatBlogsPreview(rawBlogs, 6, curr);
+  res.render('explore', { blogs, page, user });
 });
 
 // Signup

@@ -1,4 +1,4 @@
-mixin menubar(currentPage)
+mixin menubar(currentPage, user)
   #menubar
     img#menu-logo(src='/image/bluedit.png', alt='Logo')
     h1 Bluedit
@@ -10,5 +10,9 @@ mixin menubar(currentPage)
       li
         a(id=(currentPage == 'notifications' ? 'menu-selected' : 'menu-item'), href='/notifications') Notifications
     section#user-status
-      div User Abc
-      div @user_id123
+      if user
+        div #{user.name}
+        div @#{user.username}
+        a(href='/logout') Logout
+      else
+        a(href='/login') Login

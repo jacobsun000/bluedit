@@ -5,7 +5,7 @@ html
     title Bluedit / Home
   body
     include menubar.pug
-    +menubar('main')
+    +menubar('main', user)
     main#content
       #search-box
         form(action="/search" method="get")
