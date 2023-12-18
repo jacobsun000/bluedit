@@ -10,8 +10,10 @@
   "author": "Jacob Sun",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "express-basic-auth": "^1.2.1",
+    "express-session": "^1.17.3",
     "mysql-await": "^2.2.3",
     "prompt": "^1.3.0",
     "pug": "^3.0.2",
