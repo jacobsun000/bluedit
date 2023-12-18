@@ -1,6 +1,7 @@
 import express from 'express';
 import { DB } from './db.js';
 
+const db = new DB();
 const APP = express();
 const PORT = 4131;
 
@@ -30,22 +31,9 @@ APP.use((req, res, next) => {
 // static files
 APP.use(express.static('resources'));
 
-const blogs = [
-  { 'id': 1, 'title': "Blog 1", 'body': "Content 1" },
-  { 'id': 2, 'title': "Blog 2", 'body': "Content 2" },
-  { 'id': 3, 'title': "Blog 3", 'body': "Content 3" },
-  { 'id': 4, 'title': "Blog 4", 'body': "Content 4" },
-  { 'id': 5, 'title': "Blog 5", 'body': "Content 5" },
-  { 'id': 6, 'title': "Blog 6", 'body': "Content 6" },
-  { 'id': 7, 'title': "Blog 7", 'body': "Content 7" },
-  { 'id': 8, 'title': "Blog 8", 'body': "Content 8" },
-];
-
-// home
-APP.get('/', async function(req, res) {
-  const pageSize = 2;
-  const curr = parseInt(req.query.page, 10) || 1;
-  // let blogs = await db.getPost({ sortBy: 'newest' });
+// Utils
+function formatBlogsPreview(blogs, pageSize, currentPage) {
+  const curr = currentPage || 1;
 
   const totalBlogs = blogs.length;
   const last = Math.ceil(totalBlogs / pageSize);
@@ -56,35 +44,32 @@ APP.get('/', async function(req, res) {
     next: curr < last ? curr + 1 : last
   };
 
-  let blogs_ = blogs.slice((curr - 1) * pageSize, curr * pageSize);
+  let previewBlogs = blogs
+    .slice((curr - 1) * pageSize, curr * pageSize)
+    .map(blog => ({
+      title: blog.title,
+      preview: blog.body.length > 100 ? blog.body.substring(0, 100) + '...' : blog.body,
+      image: blog.image,
+    }));
+  return { blogs: previewBlogs, page }
+}
 
-  const previewBlogs = blogs_.map(blog => ({
-    title: blog.title,
-    body: blog.body.length > 100 ? blog.body.substring(0, 100) + '...' : blog.body,
-    image: blog.image,
-  }));
+// home
+APP.get('/', async function(req, res) {
+  const blogs = await db.getPost({ sortBy: 'newest' });
+  const curr = parseInt(req.query.page, 10) || 1;
 
-  res.render('main', { blogs: previewBlogs, page });
+  res.render('main', formatBlogsPreview(blogs, 6, curr));
 });
 
 // explore
-APP.get('/explore', function(req, res) {
-  let searchText = req.query.search || '';
-  let sort = req.query.sort || 'newest';
+APP.get('/explore', async function(req, res) {
+  const keyword = req.query.search || '';
+  const sortBy = req.query.sort || 'newest';
+  const curr = parseInt(req.query.page, 10) || 1;
+  const blogs = await db.getPost({ keyword, sortBy });
 
-  const pageSize = 2;
-  let totalBlogs = 8;
-
-  let curr = parseInt(req.query.page, 10) || 1;
-  const last = Math.ceil(totalBlogs / pageSize);
-  const page = {
-    curr: curr,
-    last: last,
-    prev: curr > 1 ? curr - 1 : 1,
-    next: curr < last ? curr + 1 : last
-  };
-
-  res.render('explore', { blogs, page });
+  res.render('explore', formatBlogsPreview(blogs, 6, curr));
 });
 
 // rest
