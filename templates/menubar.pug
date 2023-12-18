@@ -8,7 +8,7 @@ mixin menubar(currentPage, user)
       li
         a(id=(currentPage == 'explore' ? 'menu-selected' : 'menu-item'), href='/explore') Explore
       li
-        a(id=(currentPage == 'notifications' ? 'menu-selected' : 'menu-item'), href='/notifications') Notifications
+        a(id=(currentPage == 'post' ? 'menu-selected' : 'menu-item'), href='/post') Post
     section#user-status
       if user
         div #{user.name}
