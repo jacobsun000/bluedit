@@ -3,6 +3,25 @@ html
   head
     include common-head.pug
     title Bluedit / Explore
+    script.
+      function likePost(id, button) {
+        fetch('/like', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id })
+        })
+        .then(response => {
+          if (response.ok) {
+            button.innerText = '💙' + button.innerText.slice(2);
+            button.disabled = true;
+          } else {
+            window.location.assign('/login');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
   body
     header
       include menubar.pug
@@ -20,14 +39,15 @@ html
       #blog-list
         each blog in blogs
           article.blog-post
-            a(href=`/blog?id=${blog.id}`)
-              .content-container
+            .content-container
+              a(href=`/blog?id=${blog.id}`)
                 .text-container
                   h2.blog-title= blog.title
                   p.blog-text-preview= blog.preview
-                if blog.image
-                  .image-container
-                    img(src=blog.image, alt="Blog Image")
+              if blog.image
+                .image-container
+                  img(src=blog.image, alt="Blog Image")
+              button(onclick=`likePost(${blog.id}, this)`) 🤍 #{blog.likes}
 
       include pagination.pug
       +pagination('/explore', page)
