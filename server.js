@@ -1,16 +1,27 @@
 import express from 'express';
+import session from 'express-session';
+import bcrypt from 'bcryptjs';
+
+
 import { DB } from './db.js';
 
 const db = new DB();
-const APP = express();
+const app = express();
 const PORT = 4131;
 
-// app settings
-APP.set('view engine', 'pug');
-APP.set('views', './templates');
-APP.use(express.json());
-APP.use(express.urlencoded({ extended: true }));
-APP.use((req, res, next) => {
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: '4457db59e3a05215bd12fa3d755760270d66fc65',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// App settings
+app.set('view engine', 'pug');
+app.set('views', './templates');
+app.use(express.json());
+app.use((req, res, next) => {
   const startTime = new Date();
   const logger = () => {
     res.removeListener('finish', logger);
@@ -28,8 +39,8 @@ APP.use((req, res, next) => {
   next();
 });
 
-// static files
-APP.use(express.static('resources'));
+// Static
+app.use(express.static('resources'));
 
 // Utils
 function formatBlogsPreview(blogs, pageSize, currentPage) {
@@ -54,16 +65,16 @@ function formatBlogsPreview(blogs, pageSize, currentPage) {
   return { blogs: previewBlogs, page }
 }
 
-// home
-APP.get('/', async function(req, res) {
+// Home
+app.get('/', async function(req, res) {
   const blogs = await db.getPost({ sortBy: 'newest' });
   const curr = parseInt(req.query.page, 10) || 1;
 
   res.render('main', formatBlogsPreview(blogs, 6, curr));
 });
 
-// explore
-APP.get('/explore', async function(req, res) {
+// Explore
+app.get('/explore', async function(req, res) {
   const keyword = req.query.search || '';
   const sortBy = req.query.sort || 'newest';
   const curr = parseInt(req.query.page, 10) || 1;
@@ -72,12 +83,57 @@ APP.get('/explore', async function(req, res) {
   res.render('explore', formatBlogsPreview(blogs, 6, curr));
 });
 
+// Signup
+app.get('/signup', (_, res) => {
+  res.render('signup');
+});
+
+app.post('/signup', async (req, res) => {
+  let { username, name, email, password, image } = req.body;
+  password = await bcrypt.hash(password, 8);
+
+  console.log(username, name, email, password, image);
+  const result = await db.addUser({ username, name, email, password, image });
+  if (result) {
+    res.redirect('/login');
+  } else {
+    res.json('Error');
+  }
+});
+
+// Login
+app.get('/login', (req, res) => {
+  const message = req.query.error === 'invalid' ? 'Wrong username or password' : null;
+  res.render('login', { message });
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  let user = await db.getUser({ username });
+  if (user === null) {
+    user = await db.getUser({ email: username });
+  }
+
+  if (user !== null && await bcrypt.compare(password, user.password)) {
+    console.log('Login success');
+    req.session.userId = user.id;
+    res.redirect('/');
+  } else {
+    res.redirect('/login?error=invalid');
+  }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
+
 // rest
-APP.use((_, res, _next) => {
+app.use((_, res, _next) => {
   res.status(404).render('404');
 });
 
 // start server
-APP.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

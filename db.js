@@ -1,6 +1,7 @@
-import mysql from 'mysql-await';
+import mysqlAwait from 'mysql-await';
+import mysql from 'mysql';
 
-var connPool = mysql.createPool({
+var connPool = mysqlAwait.createPool({
   connectionLimit: 5,
   host: 'localhost',
   user: 'root',
@@ -10,7 +11,7 @@ var connPool = mysql.createPool({
 
 export class DB {
   constructor() {
-    this.connPool = mysql.createPool({
+    this.connPool = mysqlAwait.createPool({
       connectionLimit: 5,
       host: 'localhost',
       user: 'root',
@@ -44,9 +45,9 @@ export class DB {
     let query = 'SELECT * FROM posts';
 
     if (id) {
-      query += ' WHERE id = ' + connPool.escape(id);
+      query += ' WHERE id = ' + mysql.escape(id);
     } else if (keyword) {
-      query += ` WHERE title LIKE '%${keyword}%' OR body LIKE '%${keyword}%'`;
+      query += ' WHERE title LIKE ' + mysql.escape(keyword) + ' OR body LIKE ' + mysql.escape(keyword);
     } else if (sortBy) {
       if (sortBy === 'newest') {
         query += ' ORDER BY updated_at DESC';
@@ -108,13 +109,14 @@ export class DB {
   }
 
   async addUser(data) {
-    if (!data.username || !data.name || !data.password) {
+    if (!data.username || !data.name || !data.password || !data.email) {
       return false;
     }
 
     const user = {
       username: data.username,
       name: data.name,
+      email: data.email,
       password: data.password,
       image: data.image || null
     };
@@ -131,9 +133,9 @@ export class DB {
   async getUser(data) {
     let query = 'SELECT * FROM users';
     if (data.id) {
-      query += ' WHERE id = ' + connPool.escape(data.id);
+      query += ' WHERE id = ' + mysql.escape(data.id);
     } else if (data.username) {
-      query += ' WHERE username = ' + connPool.escape(data.username);
+      query += ' WHERE username = ' + mysql.escape(data.username);
     } else {
       return null;
     }
