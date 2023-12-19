@@ -3,11 +3,19 @@ import mysql from 'mysql';
 
 var connPool = mysqlAwait.createPool({
   connectionLimit: 5,
-  host: 'localhost',
-  user: 'root',
-  database: 'CSCI4131',
-  password: 'password',
+  host: "localhost",
+  user: 'C4131F23U202',
+  database: 'C4131F23U202',
+  password: '40854',
 });
+
+// var connPool = mysqlAwait.createPool({
+//   connectionLimit: 5,
+//   host: 'localhost',
+//   user: 'root',
+//   database: 'CSCI4131',
+//   password: 'password',
+// });
 
 export class DB {
   constructor() {

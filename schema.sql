@@ -19,7 +19,6 @@ CREATE TABLE `posts` (
   FOREIGN KEY (`userid`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
-# Fake data
 INSERT INTO `users` (username, name, email, password, image)
 VALUES
 ('admin', 'admin', 'adminadmin', 'admin@bluedit.com', 'https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg');
