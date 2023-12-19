@@ -8,14 +8,15 @@ html
     +menubar('post', user)
     main#content
       h1 Create New Blog Post
-      form(action='/post', method='post')
-        div
-          label(for='title') Title:
-          input(type='text', name='title', required)
-        div
-          label(for='body') Body:
-          textarea(name='body', required)
-        div
-          label(for='image') Image URL:
-          input(type='text', name='image')
-        button(type='submit') Submit
+      .edit
+        form(action='/post', method='post')
+          div
+            label(for='title') Title:
+            input(type='text', name='title', required)
+          div
+            label(for='body') Body:
+            textarea(name='body', required)
+          div
+            label(for='image') Image URL:
+            input(type='text', name='image')
+          button(type='submit') Submit
